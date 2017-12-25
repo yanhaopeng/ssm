@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yan.demo.dao.AllViewMapper" >
+
+
+ <!-- 调用存储过程查询 -->
+<!--  <select id="testProcedure" parameterType="java.util.Map" statementType="CALLABLE" resultType="java.util.HashMap">  
+      {call loginandreg(
+                #{out_ret,mode=OUT,javaType=java.lang.Integer,jdbcType=INTEGER},
+              #{out_desc,mode=OUT,javaType=java.lang.String,jdbcType=VARCHAR},
+              #{userId,jdbcType=VARCHAR,mode=OUT},
+              #{user_pwd,jdbcType=VARCHAR,mode=IN},
+              #{nickname,jdbcType=VARCHAR,mode=IN}
+          )
+       }
+  </select> -->
+  
+  <!-- 调用视图查询 -->
+  <select id="allView" parameterType="java.util.Map" resultType="java.util.HashMap">
+        select * from allview 
+  </select>
+    
+</mapper>

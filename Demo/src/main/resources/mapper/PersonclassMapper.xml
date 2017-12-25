@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yan.demo.dao.PersonclassMapper">
+  <resultMap id="BaseResultMap" type="com.yan.demo.bean.Personclass">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="personid" jdbcType="INTEGER" property="personid" />
+    <result column="classid" jdbcType="INTEGER" property="classid" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, personid, classid, score
+  </sql>
+  <select id="selectByExample" parameterType="com.yan.demo.bean.PersonclassExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from personclass
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from personclass
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from personclass
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yan.demo.bean.PersonclassExample">
+    delete from personclass
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yan.demo.bean.Personclass">
+    insert into personclass (id, personid, classid, 
+      score)
+    values (#{id,jdbcType=INTEGER}, #{personid,jdbcType=INTEGER}, #{classid,jdbcType=INTEGER}, 
+      #{score,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yan.demo.bean.Personclass">
+    insert into personclass
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="personid != null">
+        personid,
+      </if>
+      <if test="classid != null">
+        classid,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="personid != null">
+        #{personid,jdbcType=INTEGER},
+      </if>
+      <if test="classid != null">
+        #{classid,jdbcType=INTEGER},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yan.demo.bean.PersonclassExample" resultType="java.lang.Long">
+    select count(*) from personclass
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update personclass
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.personid != null">
+        personid = #{record.personid,jdbcType=INTEGER},
+      </if>
+      <if test="record.classid != null">
+        classid = #{record.classid,jdbcType=INTEGER},
+      </if>
+      <if test="record.score != null">
+        score = #{record.score,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update personclass
+    set id = #{record.id,jdbcType=INTEGER},
+      personid = #{record.personid,jdbcType=INTEGER},
+      classid = #{record.classid,jdbcType=INTEGER},
+      score = #{record.score,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yan.demo.bean.Personclass">
+    update personclass
+    <set>
+      <if test="personid != null">
+        personid = #{personid,jdbcType=INTEGER},
+      </if>
+      <if test="classid != null">
+        classid = #{classid,jdbcType=INTEGER},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yan.demo.bean.Personclass">
+    update personclass
+    set personid = #{personid,jdbcType=INTEGER},
+      classid = #{classid,jdbcType=INTEGER},
+      score = #{score,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+ <resultMap id="selectAllResultMap" type="com.yan.demo.bean.Personclass">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="personid" jdbcType="INTEGER" property="personid" />
+    <result column="classid" jdbcType="INTEGER" property="classid" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <association javaType="com.yan.demo.bean.OnClass" property="onClass">
+    	<id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="classname" jdbcType="VARCHAR" property="classname" />
+	    <result column="classtype" jdbcType="INTEGER" property="classtype" />
+	    <result column="classstate" jdbcType="INTEGER" property="classstate" />
+	    <association property="dictionary" javaType="com.yan.demo.bean.Dictionary">
+	    	<id column="code" jdbcType="INTEGER" property="code" />
+		    <result column="id" jdbcType="INTEGER" property="id" />
+		    <result column="name" jdbcType="VARCHAR" property="name" />
+    	</association>
+    </association>
+    <association javaType="com.yan.demo.bean.Person" property="person">
+    	<id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="name" jdbcType="VARCHAR" property="name" />
+	    <result column="sex" jdbcType="INTEGER" property="sex" />
+	    <result column="nation" jdbcType="INTEGER" property="nation" />
+	    <association javaType="com.yan.demo.bean.Dictionary" property="dictionary">
+	    	<id column="id" jdbcType="INTEGER" property="id" />
+		    <result column="code" jdbcType="INTEGER" property="code" />
+		    <result column="name" jdbcType="VARCHAR" property="name" />
+    	</association>
+    </association>
+  </resultMap>
+  
+  <resultMap id="selectAllResultMap2" type="com.yan.demo.bean.Dto">
+    <id column="name" jdbcType="VARCHAR" property="name" />
+    <result column="personid" jdbcType="INTEGER" property="personid" />
+    <result column="classid" jdbcType="INTEGER" property="classid" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <association javaType="com.yan.demo.bean.OnClass" property="onClass">
+    	<id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="classname" jdbcType="VARCHAR" property="classname" />
+	    <result column="classtype" jdbcType="INTEGER" property="classtype" />
+	    <result column="classstate" jdbcType="INTEGER" property="classstate" />
+	    <association property="dictionary" javaType="com.yan.demo.bean.Dictionary">
+	    	<id column="code" jdbcType="INTEGER" property="code" />
+		    <result column="id" jdbcType="INTEGER" property="id" />
+		    <result column="name" jdbcType="VARCHAR" property="name" />
+    	</association>
+    </association>
+    <association javaType="com.yan.demo.bean.Person" property="person">
+    	<id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="name" jdbcType="VARCHAR" property="name" />
+	    <result column="sex" jdbcType="INTEGER" property="sex" />
+	    <result column="nation" jdbcType="INTEGER" property="nation" />
+	    <association javaType="com.yan.demo.bean.Dictionary" property="dictionary">
+	    	<id column="id" jdbcType="INTEGER" property="id" />
+		    <result column="code" jdbcType="INTEGER" property="code" />
+		    <result column="name" jdbcType="VARCHAR" property="name" />
+    	</association>
+    </association>
+    
+  </resultMap>
+  <select id="selectAll" resultMap="selectAllResultMap">
+  	SELECT p.`name`,
+(SELECT NAME FROM dictionary WHERE `code` = p.sex) sexname,
+
+(SELECT NAME FROM dictionary WHERE `code` = p.nation) nationname,
+
+(SELECT NAME FROM dictionary WHERE `code` = c.classtype) classtypename,
+
+(SELECT NAME FROM dictionary WHERE `code` = c.classstate) classstatename,
+pc.score
+FROM person p,personclass pc,onclass c WHERE p.id = pc.personId AND pc.classid = c.id
+GROUP BY p.`name`,c.classname,p.sex,p.nation,c.classtype,c.classstate,pc.score
+  </select>
+
+</mapper>
